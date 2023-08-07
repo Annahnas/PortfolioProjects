@@ -25,6 +25,16 @@ from PortfolioProject..covidDeaths a, PortfolioProject..covidVaccination b
 GROUP BY a.[location], b.population
 order by PercentPopulationInfected desc;
 
+--View
+create view HighestInfectionRate as 
+select a.[location], b.population, MAX(a.total_cases) as HighestInfectionCount,
+MAX((a.total_deaths/b.population))*100 as PercentPopulationInfected
+from PortfolioProject..covidDeaths a, PortfolioProject..covidVaccination b
+GROUP BY a.[location], b.population
+order by PercentPopulationInfected desc;
+
+select * from HighestInfectionRate 
+
 
 --Countries with highest death count per population
 select [location], MAX(cast(total_deaths as int)) as TotalDeathCount
